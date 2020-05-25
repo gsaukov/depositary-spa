@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 export interface Deposit {
   UUID: string;
@@ -6018,6 +6020,8 @@ const DEPOSIT_DATA: Deposit[] = [
 ];
 
 
+
+
 @Component({
   selector: 'app-deposits',
   templateUrl: './deposits.component.html',
@@ -6026,11 +6030,41 @@ const DEPOSIT_DATA: Deposit[] = [
 export class DepositsComponent implements OnInit {
 
   displayedColumns: string[] = ['UUID', 'CREATED_AT', 'SYMBOL', 'ACCOUNT_ID', 'ROUTE', 'FILL_PRICE', 'QUANTITY', 'CLOSED', 'VERSION'];
-  dataSource = DEPOSIT_DATA;
+  public depositData = DEPOSIT_DATA;
+  public dataSource;
+  public pageSize = 10;
+  public currentPage = 0;
+  public totalSize = 0;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  public handlePage(e: any) {
+    this.currentPage = e.pageIndex;
+    this.pageSize = e.pageSize;
+    this.iterator();
+  }
+
+  private getArray() {
+    // this.app.getDeliveries()
+    //   .subscribe((response) => {
+    //     this.dataSource = new MatTableDataSource<Element>(response);
+    //     this.dataSource.paginator = this.paginator;
+    //     this.array = response;
+    //     this.totalSize = this.array.length;
+    //     this.iterator();
+    //   });
+  }
+
+  private iterator() {
+    const end = (this.currentPage + 1) * this.pageSize;
+    const start = this.currentPage * this.pageSize;
+    const part = this.depositData.slice(start, end);
+    this.dataSource = part;
   }
 
 }
