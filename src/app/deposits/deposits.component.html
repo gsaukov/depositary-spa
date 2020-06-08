@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource | slice: lowValue : highValue" class="mat-elevation-z8">
 
   <ng-container matColumnDef="UUID">
     <th mat-header-cell *matHeaderCellDef> UUID </th>
@@ -49,6 +49,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize"
-               [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+<mat-paginator [length]="dataSource.length" pageSize=20
+               (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+               showFirstLastButtons="true">
 </mat-paginator>

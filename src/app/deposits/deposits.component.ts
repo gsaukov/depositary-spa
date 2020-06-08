@@ -6020,8 +6020,6 @@ const DEPOSIT_DATA: Deposit[] = [
 ];
 
 
-
-
 @Component({
   selector: 'app-deposits',
   templateUrl: './deposits.component.html',
@@ -6030,41 +6028,19 @@ const DEPOSIT_DATA: Deposit[] = [
 export class DepositsComponent implements OnInit {
 
   displayedColumns: string[] = ['UUID', 'CREATED_AT', 'SYMBOL', 'ACCOUNT_ID', 'ROUTE', 'FILL_PRICE', 'QUANTITY', 'CLOSED', 'VERSION'];
-  public depositData = DEPOSIT_DATA;
-  public dataSource;
-  public pageSize = 10;
-  public currentPage = 0;
-  public totalSize = 0;
+  public dataSource = DEPOSIT_DATA;
+  lowValue = 0;
+  highValue = 20;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  public handlePage(e: any) {
-    this.currentPage = e.pageIndex;
-    this.pageSize = e.pageSize;
-    this.iterator();
-  }
-
-  private getArray() {
-    // this.app.getDeliveries()
-    //   .subscribe((response) => {
-    //     this.dataSource = new MatTableDataSource<Element>(response);
-    //     this.dataSource.paginator = this.paginator;
-    //     this.array = response;
-    //     this.totalSize = this.array.length;
-    //     this.iterator();
-    //   });
-  }
-
-  private iterator() {
-    const end = (this.currentPage + 1) * this.pageSize;
-    const start = this.currentPage * this.pageSize;
-    const part = this.depositData.slice(start, end);
-    this.dataSource = part;
+  public getPaginatorData(event: PageEvent): PageEvent {
+    this.lowValue = event.pageIndex * event.pageSize;
+    this.highValue = this.lowValue + event.pageSize;
+    return event;
   }
 
 }

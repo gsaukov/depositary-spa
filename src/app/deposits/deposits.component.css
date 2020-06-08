@@ -1,5 +1,17 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 table {
-  width: 70%;
+  width: 80%;
 }
+
+.mat-cell, .mat-header-cell {
+  background-color: black;
+  font-size: 2em;
+  color: grey;
+}
+
+tr:hover .mat-cell{
+  color: white !important;
+  cursor: pointer;
+}
+
