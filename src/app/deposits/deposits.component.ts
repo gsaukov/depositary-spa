@@ -6023,7 +6023,7 @@ const DEPOSIT_DATA: Deposit[] = [
 @Component({
   selector: 'app-deposits',
   templateUrl: './deposits.component.html',
-  styleUrls: ['./deposits.component.css']
+  styleUrls: ['./deposits.component.scss']
 })
 export class DepositsComponent implements OnInit {
 

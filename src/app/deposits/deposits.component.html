@@ -49,7 +49,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<mat-paginator [length]="dataSource.length" pageSize=20
-               (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+<mat-paginator [length]="dataSource.length" [pageSize]=20
+               (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 50]"
                showFirstLastButtons="true">
 </mat-paginator>
